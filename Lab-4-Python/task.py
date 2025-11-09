@@ -26,16 +26,13 @@ def get_memtable(stuffdict):
     size, value = get_size_value(stuffdict)
     n = len(value)
 
-
     table = np.array([[0 for _ in range(7+1)] for _ in range(n+1)])
-    
     
     for row in range(n+1):
         for colmn in range(7+1):
 
             if row == 0 or colmn == 0:
                 table[row][colmn] = 0
-            
 
             elif size[row-1] <= colmn:
                 table[row][colmn] = max(table[row-1][colmn], value[row-1] + table[row-1][colmn - size[row - 1]])
@@ -86,11 +83,6 @@ values = keys_values_list[1]+list(a.values())
 
 d = {keys[i]:values[i] for i in range(len(keys))}
 
-
-
-
-
-
 def get_backpack(stuffdict, row, column):
     nump = np.zeros((row,column), dtype='<U1')
     colmn = len(nump[0])
@@ -122,11 +114,11 @@ def get_backpack(stuffdict, row, column):
 
 print(get_backpack(d,2,4))
 
-
 collected_points = sum(i[1] for i in values) + start_points
 end_points = collected_points - (total_points - collected_points)
 if end_points >= 0: 
     print(f'Итоговое количество очков: {end_points}\nУра! Это больше 0, мы смогли это сделать!')
 else:
     print(f'Итоговое количество очков: {end_points}\nЭх, неудача.')        
+
 
