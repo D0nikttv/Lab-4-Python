@@ -22,29 +22,24 @@ def get_size_value(stuffdict) -> (int|int):
     value = [stuffdict[itm][1] for itm in stuffdict]
     return size, value
 
-
 def get_memtable(stuffdict):
     size, value = get_size_value(stuffdict)
     n = len(value)
 
-
     table = np.array([[0 for _ in range(6+1)] for _ in range(n+1)])
-    
-    
+     
     for row in range(n+1):
         for colmn in range(6+1):
 
             if row == 0 or colmn == 0:
                 table[row][colmn] = 0
-            
-
+                    
             elif size[row-1] <= colmn:
                 table[row][colmn] = max(table[row-1][colmn], value[row-1] + table[row-1][colmn - size[row - 1]])
 
             else: 
                 table[row][colmn] = table[row-1][colmn]
     return table, size, value 
-
 
 def get_selected_item_list(stuffdict, back=6):
     table, size, value = get_memtable(stuffdict)
@@ -94,5 +89,6 @@ if end_points >= 0:
     print(f'Итоговое количество очков: {end_points}\nУра! Это больше 0, мы смогли это сделать!')
 else:
     print(f'Итоговое количество очков: {end_points}\nЭх, неудача.')   
+
 
 print(f'Набор предметов для 7 ячеек: {d}')
